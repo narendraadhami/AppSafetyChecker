@@ -1,0 +1,11 @@
+framework module AppSafetyChecker {
+  umbrella header "AppSafetyChecker.h"
+
+  export *
+  module * { export * }
+}
+
+module AppSafetyChecker.Swift {
+    header "AppSafetyChecker-Swift.h"
+    requires objc
+}
