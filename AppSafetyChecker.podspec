@@ -17,7 +17,8 @@ Pod::Spec.new do |spec|
 
   spec.name         = "AppSafetyChecker"
   spec.version      = "0.0.1"
-  spec.summary      = "A short description of AppSafetyChecker."
+  spec.summary      = "Checks iOS app safety."
+
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,9 +26,11 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
+  This framework provide following features:
+  Jailbreak check, Root device check, iOS app safety, iOS app security
                    DESC
 
-  spec.homepage     = "http://EXAMPLE/AppSafetyChecker"
+  spec.homepage     = "https://github.com/narendraadhami/AppSafetyChecker"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -38,7 +41,7 @@ Pod::Spec.new do |spec|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  spec.license      = "MIT (example)"
+  spec.license      =  { :type => "MIT", :file => "LICENSE" }
   # spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -52,9 +55,9 @@ Pod::Spec.new do |spec|
   #  profile URL.
   #
 
-  spec.author             = { "ND" => "narendra.dhami@kuliza.com" }
+  spec.author             = { "Narendra Dhami" => "andydhami55555@gmail.com" }
   # Or just: spec.author    = "ND"
-  # spec.authors            = { "ND" => "narendra.dhami@kuliza.com" }
+  # spec.authors            = { "ND" => "andydhami55555@gmail.com" }
   # spec.social_media_url   = "https://twitter.com/ND"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -79,7 +82,8 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "http://EXAMPLE/AppSafetyChecker.git", :tag => "#{spec.version}" }
+https://github.com/narendraadhami/AppSafetyChecker
+  spec.source       = { :git => "https://github.com/narendraadhami/AppSafetyChecker.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
