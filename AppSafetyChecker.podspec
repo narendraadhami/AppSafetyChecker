@@ -83,7 +83,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/narendraadhami/AppSafetyChecker.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/narendraadhami/AppSafetyPodSpecs.git", :branch => "main", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
