@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "AppSafetyChecker"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "Checks iOS app safety."
   spec.swift_version = '4.0'
 
@@ -83,7 +83,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/narendraadhami/AppSafetyPodSpecs.git", :branch => "main", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/narendraadhami/AppSafetyPodSpecs.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

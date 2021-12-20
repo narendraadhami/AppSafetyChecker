@@ -12,15 +12,15 @@ public class AppSafetyChecker{
     //MARK: Device safety check
     public func isDeviceSafe() -> Bool {
         if JailbreakChecker.amIJailbroken() || ReverseEngineeringToolsChecker.amIReverseEngineered(){
-            return true
+            return false
             
         }else{
-                if EmulatorChecker.amIRunInEmulator() || DebuggerChecker.amIDebugged(){
-                    return true
-                    
-                }
-    
-            return false
+            if EmulatorChecker.amIRunInEmulator() || DebuggerChecker.amIDebugged(){
+                return false
+                
+            }
+            
+            return true
             
         }
     }
