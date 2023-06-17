@@ -7,19 +7,19 @@
 
 import Foundation
 
-internal class SimulatorChecker {
+ class SimulatorChecker {
 
-    static func amIRunInSimulator() -> Bool {
+     func amIRunInSimulator() -> Bool {
 
         return checkCompile() || checkRuntime() || isDynamicInstrumentationDetected()
     }
 
-    private static func checkRuntime() -> Bool {
+    private func checkRuntime() -> Bool {
 
         return ProcessInfo().environment["SIMULATOR_DEVICE_NAME"] != nil
     }
     
-    private static func isDynamicInstrumentationDetected() -> Bool {
+    private func isDynamicInstrumentationDetected() -> Bool {
         // Check for the presence of environment variables used for dynamic instrumentation
         let envVariables = ProcessInfo.processInfo.environment
         let dyldInsertLibraries = envVariables["DYLD_INSERT_LIBRARIES"]
@@ -30,7 +30,7 @@ internal class SimulatorChecker {
         return false
     }
 
-    private static func checkCompile() -> Bool {
+    private func checkCompile() -> Bool {
 
         #if targetEnvironment(simulator)
         return true

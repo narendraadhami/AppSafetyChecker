@@ -6,16 +6,13 @@
 //
 
 import Foundation
-
-
-import Foundation
 import UIKit
 import Darwin // fork
 import MachO // dyld
 
-public typealias FailedCheck = (check: JailbreakCheck, failMessage: String)
+ typealias FailedCheck = (check: JailbreakCheck, failMessage: String)
 
-public enum JailbreakCheck: CaseIterable {
+ enum JailbreakCheck: CaseIterable {
     case urlSchemes
     case existenceOfSuspiciousFiles
     case suspiciousFilesCanBeOpened
@@ -34,11 +31,11 @@ class JailbreakChecker:NSObject {
         let failedChecks: [FailedCheck]
     }
 
-    class func amIJailbroken() -> Bool {
+     func amIJailbroken() -> Bool {
         return !performChecks().passed
     }
 
-    private static func performChecks() -> JailbreakStatus {
+    private func performChecks() -> JailbreakStatus {
         var passed = true
         var failMessage = ""
         var result: CheckResult = (true, "")
@@ -55,7 +52,7 @@ class JailbreakChecker:NSObject {
             case .restrictedDirectoriesWriteable:
                 result = checkRestrictedDirectoriesWriteable()
             case .fork:
-                if !SimulatorChecker.amIRunInSimulator() {
+                if !SimulatorChecker().amIRunInSimulator() {
                     result = checkFork()
                 } else {
                    // print("App run in the emulator, skipping the fork check.")
@@ -83,7 +80,7 @@ class JailbreakChecker:NSObject {
         return JailbreakStatus(passed: passed, failMessage: failMessage, failedChecks: failedChecks)
     }
 
-    private static func canOpenUrlFromList(urlSchemes: [String]) -> CheckResult {
+    private func canOpenUrlFromList(urlSchemes: [String]) -> CheckResult {
         for urlScheme in urlSchemes {
             if let url = URL(string: urlScheme) {
                 if UIApplication.shared.canOpenURL(url) {
@@ -94,7 +91,7 @@ class JailbreakChecker:NSObject {
         return (true, "")
     }
 
-    private static func checkURLSchemes() -> CheckResult {
+    private func checkURLSchemes() -> CheckResult {
         var flag: (passed: Bool, failMessage: String) = (true, "")
         let urlSchemes = [
             "undecimus://",
@@ -108,7 +105,7 @@ class JailbreakChecker:NSObject {
         } else {
             let semaphore = DispatchSemaphore(value: 0)
             DispatchQueue.main.async {
-                flag = canOpenUrlFromList(urlSchemes: urlSchemes)
+                flag = self.canOpenUrlFromList(urlSchemes: urlSchemes)
                 semaphore.signal()
             }
             semaphore.wait()
@@ -116,7 +113,7 @@ class JailbreakChecker:NSObject {
         return flag
     }
 
-    private static func checkExistenceOfSuspiciousFiles() -> CheckResult {
+    private func checkExistenceOfSuspiciousFiles() -> CheckResult {
         var paths = [
             "/usr/sbin/frida-server", // frida
             "/etc/apt/sources.list.d/electra.list", // electra
@@ -164,7 +161,7 @@ class JailbreakChecker:NSObject {
         ]
         
         // These files can give false positive in the Simulator
-        if !SimulatorChecker.amIRunInSimulator() {
+        if !SimulatorChecker().amIRunInSimulator() {
             paths += [
             "/bin/bash",
             "/usr/sbin/sshd",
@@ -185,7 +182,7 @@ class JailbreakChecker:NSObject {
         return (true, "")
     }
 
-    private static func checkSuspiciousFilesCanBeOpened() -> CheckResult {
+    private func checkSuspiciousFilesCanBeOpened() -> CheckResult {
 
         var paths = [
             "/.installed_unc0ver",
@@ -197,7 +194,7 @@ class JailbreakChecker:NSObject {
         ]
         
         // These files can give false positive in the emulator
-        if !SimulatorChecker.amIRunInSimulator() {
+        if !SimulatorChecker().amIRunInSimulator() {
             paths += [
             "/bin/bash",
             "/usr/sbin/sshd",
@@ -215,7 +212,7 @@ class JailbreakChecker:NSObject {
         return (true, "")
     }
 
-    private static func checkRestrictedDirectoriesWriteable() -> CheckResult {
+    private func checkRestrictedDirectoriesWriteable() -> CheckResult {
 
         let paths = [
             "/",
@@ -238,7 +235,7 @@ class JailbreakChecker:NSObject {
         return (true, "")
     }
 
-    private static func checkFork() -> CheckResult {
+    private func checkFork() -> CheckResult {
 
         let pointerToFork = UnsafeMutableRawPointer(bitPattern: -2)
         let forkPtr = dlsym(pointerToFork, "fork")
@@ -256,7 +253,7 @@ class JailbreakChecker:NSObject {
         return (true, "")
     }
 
-    private static func checkSymbolicLinks() -> CheckResult {
+    private func checkSymbolicLinks() -> CheckResult {
 
         let paths = [
             "/var/lib/undecimus/apt", // unc0ver
@@ -281,7 +278,7 @@ class JailbreakChecker:NSObject {
         return (true, "")
     }
 
-    private static func checkDYLD() -> CheckResult {
+    private func checkDYLD() -> CheckResult {
 
         let suspiciousLibraries = [
             "SubstrateLoader.dylib",
