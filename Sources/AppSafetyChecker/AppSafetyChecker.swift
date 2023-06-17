@@ -1,6 +1,12 @@
 public struct AppSafetyChecker {
-    public private(set) var text = "Hello, World Testing!"
-
-    public init() {
+    
+    //Jailbroken Check
+    public func isDeviceJailBreak() -> Bool{
+        JailbreakChecker.amIJailbroken()
+    }
+    
+    //Simulator Check
+    public func isRunningOnSimulator() -> Bool{
+        SimulatorChecker.amIRunInSimulator()
     }
 }
